@@ -7,6 +7,7 @@ from selenium.common.exceptions import TimeoutException #超时的异常
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
+import win32api,win32con
 
 class spider(object):
     def start(self):
@@ -115,6 +116,19 @@ class spider(object):
                 except TimeoutException:
                     pass
             time.sleep(120)
+        #验证是否完成
+        coursecomplete = True
+        while coursecomplete:
+            try:
+                ts4 = wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR,'body > doctype > div.content > div > div.fl > div.ts4.tanc2 > p'))
+                )
+                ts4.click()
+                coursecomplete = False
+                win32api.MessageBox(0, "课程完成", "通知", win32con.MB_OK)
+            except TimeoutException:
+                time.sleep(60)
+
         #是否继续
         learnornot = input('本课程观看完成，是否继续课程学习，否请输入N:')
         if learnornot == 'N':
