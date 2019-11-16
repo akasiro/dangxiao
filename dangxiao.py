@@ -11,7 +11,31 @@ import win32api,win32con
 import os
 class spider(object):
     def start(self):
-        driver = webdriver.Firefox()
+        get_a_browser = False
+        while not get_a_browser:
+
+            try:
+                driver = webdriver.Firefox()
+                print('成功控制火狐')
+                break
+            except:
+                print('cannot control firefox')
+            try:
+                driver = webdriver.Chrome()
+                print('成功控制chrome')
+                break
+            except:
+                print('cannot control chrome')
+            try:
+                driver = webdriver.Ie()
+                print('成功控制ie')
+                break
+            except:
+                print('cannot control ie')
+
+            break
+
+
         # 点击登陆微人大
         self.signinbc(driver)
         # 登陆微人大
@@ -115,7 +139,7 @@ class spider(object):
                     tstop3 = False
                 except TimeoutException:
                     pass
-            time.sleep(30)
+            time.sleep(5)
         #验证是否完成
         coursecomplete = True
         while coursecomplete:
@@ -127,7 +151,7 @@ class spider(object):
                 coursecomplete = False
                 win32api.MessageBox(0, "课程完成", "通知", win32con.MB_OK)
             except TimeoutException:
-                time.sleep(60)
+                time.sleep(5)
 
         #是否继续
         learnornot = input('本课程观看完成，是否继续课程学习，否请输入N:')
