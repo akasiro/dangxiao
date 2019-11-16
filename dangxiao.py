@@ -8,10 +8,10 @@ from bs4 import BeautifulSoup
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import time
 import win32api,win32con
-
+import os
 class spider(object):
     def start(self):
-        driver = webdriver.Chrome()
+        driver = webdriver.Firefox()
         # 点击登陆微人大
         self.signinbc(driver)
         # 登陆微人大
@@ -53,7 +53,7 @@ class spider(object):
         #切换到播放界面
         handles = driver.window_handles
         for h in handles:
-            driver.switch_to_window(h)
+            driver.switch_to.window(h)
             try:
                 wait.until(
                     EC.presence_of_element_located((By.CSS_SELECTOR, '#myVideo'))
@@ -115,7 +115,7 @@ class spider(object):
                     tstop3 = False
                 except TimeoutException:
                     pass
-            time.sleep(120)
+            time.sleep(30)
         #验证是否完成
         coursecomplete = True
         while coursecomplete:
